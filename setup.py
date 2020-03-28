@@ -10,6 +10,7 @@ setup(
     packages=find_packages(),
     entry_points='''
         [console_scripts]
+        create_executable=create_executable:create_executable
     ''',
     classifiers=[
         "Programming Language :: Python :: 3.7",
