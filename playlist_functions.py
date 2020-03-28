@@ -33,9 +33,7 @@ def get_rhythmbox_song_paths(playlist_file_path):
 
 
 def get_playlist_name(playlist_file_path):
-    return PLAYLIST_REGEX.search(
-        'Favorites|Anime|Instrumentals_Soundtrack|Rap', playlist_file_path
-    ).group()
+    return PLAYLIST_REGEX.search(playlist_file_path).group()
 
 
 def create_sandisk_playlist(playlist_name, song_paths):
