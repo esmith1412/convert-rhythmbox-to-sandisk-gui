@@ -23,7 +23,6 @@ def get_rhythmbox_song_paths(playlist_file_path):
     """To get the absolute paths for all the songs in a given playlist,
     in order
     """
-
     song_paths = []
 
     with open(playlist_file_path) as playlist_file:
@@ -42,13 +41,11 @@ def get_rhythmbox_song_paths(playlist_file_path):
 
 def get_playlist_name(playlist_file_path):
     """To get the name of a playlist, from its absolute path"""
-
     return PLAYLIST_REGEX.search(playlist_file_path).group()
 
 
 def create_sandisk_playlist(playlist_name, song_paths):
     """To create a SanDisk Sansa M3U playlist, for a list of song paths"""
-
     playlist_file_name = f'{playlist_name}_sandisk.m3u'
 
     # To save the new playlist in the SanDisk Sansa playlist folder
@@ -80,7 +77,6 @@ def delete_songs_from_sandisk(playlist_name, song_paths):
     """To delete any song that is not in the Rhythmbox playlist
     from the SanDisk Sansa playlist folder
     """
-
     song_files = [os.path.basename(song_path) for song_path in song_paths]
 
     sandisk_playlist_folder = os.path.join(SANDISK_PC_PATH, playlist_name)

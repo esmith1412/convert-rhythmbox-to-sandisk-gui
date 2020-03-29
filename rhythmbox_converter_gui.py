@@ -4,7 +4,6 @@ songs missing from the playlist, and copy all new songs to the SanDisk Sansa
 playlist folder.
 """
 
-
 import PySimpleGUI as sg
 from playlist_functions import (
     PLAYLIST_REGEX,
@@ -20,7 +19,6 @@ def get_rhythmbox_converter_layout():
     """To create the PySimpleGUI layout needed for the Rhythmbox playlist
     converter GUI
     """
-
     sg.theme('Reddit')
 
     return [
@@ -40,7 +38,6 @@ def create_rhythmbox_converter_window(layout):
     """To create a PySimpleGUI window for the Rhythmbox playlist converter GUI,
     get its data, and then process it
     """
-
     window = sg.Window('SanDisk Sansa Playlist Creator', layout)
 
     while True:
