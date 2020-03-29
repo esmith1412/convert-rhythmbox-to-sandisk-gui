@@ -1,7 +1,12 @@
+"""
+This module contains all the functions needed to get a list of all the songs
+required for a SanDisk Sansa M3U playlist, copy them to the Sansa SD directory,
+and delete any files that are in the playlist, but no longer in the directory.
+"""
+
 import os
 import re
 import shutil
-import pprint
 import PySimpleGUI as sg
 
 
@@ -14,8 +19,11 @@ MUSIC_PATH = '/home/elijah/Music/'
 PLAYLIST_REGEX = re.compile('Favorites|Anime|Instrumentals_Soundtrack|Rap')
 
 
-# To get the absolute paths for all the songs in a given playlist, in order
 def get_rhythmbox_song_paths(playlist_file_path):
+    """To get the absolute paths for all the songs in a given playlist,
+    in order
+    """
+
     song_paths = []
 
     with open(playlist_file_path) as playlist_file:
@@ -33,10 +41,14 @@ def get_rhythmbox_song_paths(playlist_file_path):
 
 
 def get_playlist_name(playlist_file_path):
+    """To get the name of a playlist, from its absolute path"""
+
     return PLAYLIST_REGEX.search(playlist_file_path).group()
 
 
 def create_sandisk_playlist(playlist_name, song_paths):
+    """To create a SanDisk Sansa M3U playlist, for a list of song paths"""
+
     playlist_file_name = f'{playlist_name}_sandisk.m3u'
 
     # To save the new playlist in the SanDisk Sansa playlist folder
@@ -48,12 +60,14 @@ def create_sandisk_playlist(playlist_name, song_paths):
     # To create the playlist
     try:
         with open(playlist_file_path, 'w') as sandisk_playlist_file:
+
             for song_path in song_paths:
                 song_file_name = os.path.basename(song_path)
 
                 sandisk_playlist_file.write(
                     f'{os.path.join(playlist_folder_path, song_file_name)}\n'
                 )
+
     except FileNotFoundError:
         sg.popup(
             'SanDisk Sansa Player is not available. Please try again.',
@@ -63,11 +77,16 @@ def create_sandisk_playlist(playlist_name, song_paths):
 
 # To delete any songs that are not in the playlist, but in its folder
 def delete_songs_from_sandisk(playlist_name, song_paths):
+    """To delete any song that is not in the Rhythmbox playlist
+    from the SanDisk Sansa playlist folder
+    """
+
     song_files = [os.path.basename(song_path) for song_path in song_paths]
 
     sandisk_playlist_folder = os.path.join(SANDISK_PC_PATH, playlist_name)
 
     try:
+
         for song in os.listdir(sandisk_playlist_folder):
             sandisk_song_path = os.path.join(sandisk_playlist_folder, song)
 
@@ -75,6 +94,7 @@ def delete_songs_from_sandisk(playlist_name, song_paths):
                 os.remove(sandisk_song_path)
             else:
                 continue
+
     except FileNotFoundError:
         sg.popup(
             'SanDisk Sansa Player is not available. Please try again.',
@@ -84,6 +104,10 @@ def delete_songs_from_sandisk(playlist_name, song_paths):
 
 # To copy any songs that are in the playlist, but not the folder
 def copy_songs_to_sandisk(playlist_name, song_paths):
+    """To copy each song from my Music folder to the SanDisk Sansa
+    playlist folder
+    """
+
     sandisk_playlist_folder = os.path.join(SANDISK_PC_PATH, playlist_name)
 
     for song_path in song_paths:
@@ -93,10 +117,12 @@ def copy_songs_to_sandisk(playlist_name, song_paths):
 
         # To copy any songs that are not in the playlist folder
         try:
+
             if not os.path.isfile(sandisk_song_path):
                 shutil.copy(song_path, sandisk_playlist_folder)
             else:
                 continue
+
         except FileNotFoundError:
             sg.popup(
                 'SanDisk Sansa Player is not available. Please try again.',

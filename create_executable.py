@@ -37,7 +37,7 @@ def create_gui():
         '--distpath=%s' % DIST_PATH,
         '--specpath=%s' % SPEC_PATH,
         '--add-data=%s' % LICENSE_PATH,
-        'converter_gui.py',
+        'rhythmbox_converter_gui.py',
     ])
 
 
