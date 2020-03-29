@@ -2,12 +2,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='convert-rhythmbox-to-sandisk-gui',
-    version='1.0.0.dev1',
+    version='1.0.0',
     description='A GUI application that takes an M3U playlist exported from Rhythmbox, and converts it to a format that can be read by the SanDisk Sansa music player, running Rockbox firmware',
     url='https://github.com/esmith1412/convert-rhythmbox-to-sandisk-gui',
     author='Elijah Smith',
     license='GNU GPLv3',
-    packages=find_packages(),
     entry_points='''
         [console_scripts]
         create_executable=create_executable:create_executable
